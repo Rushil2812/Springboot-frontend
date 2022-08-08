@@ -8,8 +8,14 @@ export default function StudentList() {
       .then(response => setStudent(response.data))
       .catch(error => alert(error))
   })
-  let deleterecord = ()=>{
-    alert("Deleted")
+  let deleterecord = (id)=>{  
+    axios.delete("http://localhost:8080/student/"+id)
+   .then(response=>{
+    if(response.data!=null)
+    {
+      alert("Deleted Succeessfully")
+    }
+   })
   }
   return (
     <div className="my-3">
@@ -31,7 +37,7 @@ export default function StudentList() {
                   <td>{student.id}</td>
                   <td>{student.name}</td>
                   <td>{student.address}</td>
-                  <td><Button variant="info">Edit</Button>{' '}<Button variant="info" onClick={deleterecord}>Delete</Button></td>
+                  <td><Button variant="info">Edit</Button>{' '}<Button variant="info" onClick={deleterecord(student.id)}>Delete</Button></td>
                 </tr>
               ))}
             </tbody>
